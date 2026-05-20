@@ -1,0 +1,13 @@
+.env
+*.env
+auth.json
+state.db
+*.db
+logs/
+*.log
+config.yaml
+secrets/
+.sessions/
+__pycache__/
+*.pyc
+.DS_Store

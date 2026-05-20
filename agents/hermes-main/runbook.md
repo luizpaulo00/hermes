@@ -82,6 +82,25 @@ hermes update
 hermes --version
 ```
 
+## Health check diário
+
+Existe um cron job do Hermes para revisar a saúde da VPS e do gateway diariamente.
+
+```bash
+hermes cron list
+hermes cron status
+hermes cron run c37f7708dda9
+```
+
+Job:
+
+- ID: `c37f7708dda9`
+- Nome: `Hermes VPS daily health check`
+- Schedule: `0 9 * * *`
+- Entrega: Telegram de origem/home do Luiz
+
+O job confere uptime/load, disco, memória, processos Hermes, `hermes gateway status`, tmux `hermes-gateway` e erros recentes em `~/.hermes/logs/gateway.log`. Nunca registrar tokens ou segredos no relatório; usar `[REDACTED]`.
+
 ## Troubleshooting rápido
 
 1. Bot não responde no Telegram:

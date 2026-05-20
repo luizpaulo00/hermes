@@ -58,6 +58,20 @@ Notas locais:
 - env persistido em `~/.hermes/.env`: `CHROME_PATH` e `BROWSE_NO_SANDBOX=1`
 - skill Hermes criada: `browse-sh`
 
+## Cron / automações recorrentes
+
+```bash
+hermes cron list
+hermes cron status
+hermes cron run c37f7708dda9
+```
+
+Jobs ativos:
+
+- `c37f7708dda9` — `Hermes VPS daily health check`, roda todo dia às `09:00 UTC` e entrega o resumo neste Telegram.
+
+O health check verifica VPS, disco, memória, processos Hermes, gateway, tmux e erros recentes de log sem expor segredos.
+
 ## Git
 
 ```bash

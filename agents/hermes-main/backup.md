@@ -4,13 +4,28 @@
 
 Backups devem permitir restaurar a documentação e scripts operacionais sem vazar segredos.
 
+## Fonte do backup
+
+Repo/control room local:
+
+```text
+/home/luiz/hermes-github
+```
+
+## Destino
+
+```text
+/home/luiz/backups/hermes-control-room/
+```
+
 ## Pode entrar no backup
 
-- `/home/luiz/hermes-control-room/README.md`
-- `/home/luiz/hermes-control-room/plans/`
-- `/home/luiz/hermes-control-room/agents/`
-- `/home/luiz/hermes-control-room/shared/`
-- `/home/luiz/hermes-control-room/scripts/`
+- `README.md`
+- `plans/`
+- `agents/`
+- `shared/`
+- `scripts/`
+- arquivos versionados seguros do control room
 
 ## Não pode entrar no backup
 
@@ -18,14 +33,41 @@ Backups devem permitir restaurar a documentação e scripts operacionais sem vaz
 - `~/.hermes/auth.json`
 - `~/.hermes/state.db`
 - `~/.hermes/logs/`
+- `.git/`
 - qualquer token, PAT, cookie ou chave privada
 
-## Comando seguro inicial
+## Script seguro
 
 ```bash
-tar --exclude='.git' --exclude='*.log' --exclude='*.db' --exclude='.env' -czf ~/hermes-control-room-backup.tgz -C /home/luiz hermes-control-room
+/home/luiz/hermes-github/scripts/weekly-backup.sh
 ```
 
-## Próximo passo futuro
+O script:
 
-No Level 4, criar job semanal para gerar backup seguro e reportar no Telegram.
+1. roda `scripts/check-no-secrets.py`;
+2. usa `git archive` do `HEAD`, evitando `.git/` e arquivos não versionados;
+3. gera `.tgz` e `.sha256` em `/home/luiz/backups/hermes-control-room/`;
+4. mantém os 12 backups mais recentes;
+5. imprime um resumo seguro para Telegram.
+
+## Cron job
+
+```bash
+hermes cron list
+hermes cron run 1453330e293a
+```
+
+Job:
+
+- ID: `1453330e293a`
+- Nome: `Hermes weekly safe backup`
+- Schedule: `0 8 * * 1`
+- Entrega: Telegram de origem/home do Luiz
+
+## Restaurar
+
+```bash
+mkdir -p /tmp/hermes-restore
+sha256sum -c /home/luiz/backups/hermes-control-room/<arquivo>.tgz.sha256
+tar -xzf /home/luiz/backups/hermes-control-room/<arquivo>.tgz -C /tmp/hermes-restore
+```

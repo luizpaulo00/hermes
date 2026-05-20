@@ -64,13 +64,17 @@ Notas locais:
 hermes cron list
 hermes cron status
 hermes cron run c37f7708dda9
+hermes cron run 1453330e293a
+hermes cron run aa3e257db6b6
 ```
 
 Jobs ativos:
 
 - `c37f7708dda9` — `Hermes VPS daily health check`, roda todo dia às `09:00 UTC` e entrega o resumo neste Telegram.
+- `1453330e293a` — `Hermes weekly safe backup`, roda segunda às `08:00 UTC`, gera backup seguro em `/home/luiz/backups/hermes-control-room/` e entrega confirmação no Telegram.
+- `aa3e257db6b6` — `Hermes weekly operations review`, roda segunda às `10:00 UTC` e entrega uma revisão curta da operação no Telegram.
 
-O health check verifica VPS, disco, memória, processos Hermes, gateway, tmux e erros recentes de log sem expor segredos.
+O health check verifica VPS, disco, memória, processos Hermes, gateway, tmux e erros recentes de log sem expor segredos. O backup usa `git archive` do `HEAD`, roda `scripts/check-no-secrets.py` antes e mantém os 12 backups mais recentes.
 
 ## Git
 

@@ -763,6 +763,15 @@ Criar rotinas que rodam sozinhas e notificam no Telegram.
 
 ## Task 4.1: Health check diário
 
+**Status:** Implementado.
+
+**Cron job:**
+
+- ID: `c37f7708dda9`
+- Nome: `Hermes VPS daily health check`
+- Schedule: `0 9 * * *`
+- Entrega: Telegram
+
 **Objective:** Receber no Telegram um resumo diário da saúde da VPS e do Hermes.
 
 **Checks:**
@@ -790,6 +799,16 @@ Faça um health check da VPS e do Hermes Gateway. Verifique status do gateway, u
 ---
 
 ## Task 4.2: Backup semanal seguro
+
+**Status:** Implementado.
+
+**Cron job:**
+
+- ID: `1453330e293a`
+- Nome: `Hermes weekly safe backup`
+- Schedule: `0 8 * * 1`
+- Script: `scripts/weekly-backup.sh` e runtime `~/.hermes/scripts/weekly-hermes-backup.sh`
+- Entrega: Telegram
 
 **Objective:** Gerar backup sem segredos.
 
@@ -819,6 +838,15 @@ Faça um health check da VPS e do Hermes Gateway. Verifique status do gateway, u
 ---
 
 ## Task 4.3: Revisão semanal de evolução
+
+**Status:** Implementado.
+
+**Cron job:**
+
+- ID: `aa3e257db6b6`
+- Nome: `Hermes weekly operations review`
+- Schedule: `0 10 * * 1`
+- Entrega: Telegram
 
 **Objective:** Impedir que a operação vire bagunça.
 

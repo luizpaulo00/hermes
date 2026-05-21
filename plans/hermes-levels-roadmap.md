@@ -756,7 +756,7 @@ Criar rotinas que rodam sozinhas e notificam no Telegram.
 1. Health check diário da VPS.
 2. Backup semanal seguro.
 3. Revisão semanal do Hermes.
-4. Monitor GitHub.
+4. Monitor GitHub. — implementado: cron `0a9355c19ace`, a cada 6 horas.
 5. Pipeline de conteúdo.
 
 ---
@@ -866,6 +866,37 @@ Faça uma revisão semanal da operação Hermes. Verifique o control room, ident
 ```
 
 **Ready when:** Você recebe uma revisão semanal útil e acionável.
+
+---
+
+## Task 4.4: Monitor GitHub
+
+**Status:** Implementado.
+
+**Cron job:**
+
+- ID: `0a9355c19ace`
+- Nome: `Hermes GitHub monitor`
+- Schedule: `0 */6 * * *`
+- Script: `scripts/github-monitor.py` e runtime `~/.hermes/scripts/github-monitor.py`
+- Entrega: Telegram somente quando houver mudança relevante
+
+**Objective:** Avisar quando o repo `luizpaulo00/hermes` tiver mudança relevante.
+
+**Checks:**
+
+- SHA da branch principal
+- issues abertas
+- PRs abertos
+- últimos workflows do GitHub Actions
+
+**Estado persistente:**
+
+```text
+~/.hermes/state/github-monitor-luizpaulo00-hermes.json
+```
+
+**Ready when:** o monitor fica silencioso sem mudanças e manda alerta quando branch, issues, PRs ou workflow mudarem.
 
 ---
 
